@@ -1,14 +1,15 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from downloadTabelas import downloadTabela
+import os
 
 datasp = pd.DataFrame(columns=['ano', 'sp', 'pp', 'g', 'c'])
-
+# Reading data downloaded in'seade.gov.br'
+downloadTabela()
 # Plotting
 for x in range(2002, 2019):
-    # Reading data downloaded in'seade.gov.br'
-    downloadTabela(x)
     df = pd.read_excel("SeadeFiles/tab_pib_" + str(x) + ".xlsx", header=10)
+    os.remove("SeadeFiles/tab_pib_" + str(x) + ".xlsx")
     df.columns = ['MUNICIPIO', 'AGROPECUARIA', 'INDUSTRIA', 'ADM PUBLICA', 'SUBTOTAL', 'TOTAL', 'IMPOSTOS', 'PIB', 'PIB CAPITA']
     print(df)
     datasp = datasp.append({
@@ -33,7 +34,7 @@ datasp.plot(kind='line', x='ano', y='g', label='Guarulhos (SP)', ax=ax, color='#
 datasp.plot(kind='line', x='ano', y='pp', label='Presidente Prudente (SP)', ax=ax, color='#C3FF13')
 
 ax.grid(False)
-plt.title('Presidente Prudente: Gross Domestic Product (GDP) \n compared to the 3 largest cities in São Paulo (State)',
+plt.title(' Gross Domestic Product (GDP) \n Of the 5 largest cities in São Paulo (State)',
           fontsize=14, alpha=0.8)
 plt.ylabel('GDP Per Capita in Real(R$)', fontsize=13, alpha=0.8)
 plt.xlabel('Year', fontsize=13, alpha=0.8)
