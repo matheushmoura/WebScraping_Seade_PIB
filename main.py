@@ -4,22 +4,21 @@ from downloadTabelas import downloadTabela
 import os
 
 datasp = pd.DataFrame(columns=['ano', 'sp', 'sbc', 'g', 'c', 'sjc'])
-# Reading data downloaded in'seade.gov.br'
+# Downloading files in 'seade.gov.br'
 downloadTabela()
-# Plotting
 
+# Excel to Pandas
 import glob, os
 os.chdir("C:/Users/Matheus/Documents/PIBbrasil/SeadeFiles/")
 for file in glob.glob("*.xlsx"):
     filesplit = file.split('pib_')[1]
     filesplit2 = filesplit.split('.')[0]
     year = filesplit2.split('-')[0]
-    print(year)
+    #print(year)
 
     df = pd.read_excel(file, header=10)
     os.remove(file)
     df.columns = ['MUNICIPIO', 'AGROPECUARIA', 'INDUSTRIA', 'ADM PUBLICA', 'SUBTOTAL', 'TOTAL', 'IMPOSTOS', 'PIB', 'PIB CAPITA']
-    print(df)
     datasp = datasp.append({
         'ano': str(year),
         'sp': df.loc[df['MUNICIPIO'] == "São Paulo"]['PIB CAPITA'].values,
@@ -47,8 +46,8 @@ datasp.plot(kind='line', x='ano', y='sbc', label='São Bernardo do Campo (SP)', 
 datasp.plot(kind='line', x='ano', y='sjc', label='São José dos Campos (SP)', ax=ax, color='#F51720')
 
 ax.grid(False)
-plt.title(' Gross Domestic Product (GDP) \n of the 5 largest cities in São Paulo (State)', fontsize=14, alpha=0.8)
-plt.ylabel('GDP Per Capita in Real(R$)', fontsize=13, alpha=0.8)
-plt.xlabel('Year', fontsize=13, alpha=0.8)
+plt.title('Produto Interno Bruto (PIB) \n das 5 maiores cidades do estado de São Paulo', fontsize=14, alpha=0.8)
+plt.ylabel('PIB Per Capita em Reais (R$)', fontsize=13, alpha=0.8)
+plt.xlabel('Ano', fontsize=13, alpha=0.8)
 plt.tick_params(top='off', right='off', labelbottom='on')
 plt.show()
