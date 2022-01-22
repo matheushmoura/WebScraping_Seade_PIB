@@ -18,7 +18,7 @@ Além disto será necessário instalar as bibliotecas seguintes: Selenium, Matpl
 $ py main.py
 ```
 <h3>Licença</h3>
-licença MIT, conforme o arquivo MIT-LICENSE.txt do repositório
+licença MIT, conforme o arquivo LICENSE do repositório
 <br/><br/>
 
 Feito por Matheus Moura 👋🏽<br/>
